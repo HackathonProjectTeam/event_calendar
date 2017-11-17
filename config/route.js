@@ -5,6 +5,7 @@ const router = new Router();
   
   //TODO: add routing configration
   router.get('/', 'IndexController#root' );
+  router.resources('/rest', 'RestController');
 
 })();
 

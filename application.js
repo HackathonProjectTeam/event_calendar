@@ -11,7 +11,6 @@ const server = app.listen(3000, () => {
   console.log(`PORT: ${server.address().port}`);
 });
 
-
 //load controllers 
 let controllers = {};
 

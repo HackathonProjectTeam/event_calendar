@@ -10,7 +10,6 @@ class Router {
   /**
    * Request Get 
    * @param url {string} リクエストURL
-   * D
    * @param func {function} 実行関数
    */
   get(path, func){
@@ -20,7 +19,6 @@ class Router {
   /**
    * Request POST 
    * @param url {string} リクエストURL
-   * D
    * @param func {function} 実行関数
    */
   post(path, func){
@@ -30,7 +28,6 @@ class Router {
   /**
    * Request PUT 
    * @param url {string} リクエストURL
-   * D
    * @param func {function} 実行関数
    */
   put(path, func){
@@ -47,23 +44,38 @@ class Router {
   }
 
   /**
+   * RestFull 
+   * @param url {string} リクエストURL
+   * @param controller {string} コントローラー名
+   */
+  resources(path, controller){
+    this.get(path, `${controller}#index`);
+    this.get(`${path}/:id`, `${controller}#show`);
+    this.post(path, `${controller}#create`);
+    this.put(`${path}/:id`, `${controller}#update`);
+    this.delete(`${path}/:id`, `${controller}#delete`);
+  }
+
+  /**
    * ルーティング反映
    * @param app {express} application
+   * @param controllers {array} コントローラー 
    */
   init(app, controllers){
-   
-    let controller_name, controller, action;
+    
+    let http_method, controller;
 
     this.routing_config.forEach( config => {
         
-      var function_conf = config.func.split('#');
-      controller_name = function_conf[0];
-      action = function_conf[1];
-      controller = controllers[controller_name];
+      http_method = config.action;
 
-      console.log(controller);
-        
-      app[config.action](config.path, (req, res, next) => { 
+      //HttpMethodを設定
+      app[http_method](config.path, (req, res) => { 
+        var function_conf = config.func.split('#'),
+            controller_name = function_conf[0],
+            action = function_conf[1];
+
+        controller = controllers[controller_name];    
         controller[action]();
       });
     });
