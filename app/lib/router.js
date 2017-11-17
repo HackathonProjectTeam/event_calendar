@@ -76,7 +76,8 @@ class Router {
             action = function_conf[1];
 
         controller = controllers[controller_name];    
-        controller[action]();
+        controller.response = res;
+        controller[action](req);
       });
     });
   }

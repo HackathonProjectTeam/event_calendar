@@ -1,9 +1,12 @@
-class IndexController {
+const Controller = require('app/lib/controller.js');
+
+class IndexController extends Controller {
   constructor(){
+    super();
   }
 
-  root(){
-    console.log('hoge');
+  root(req){
+    this.render('root');;
   }
   
 }

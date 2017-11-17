@@ -1,6 +1,8 @@
-class RestController {
-  constructor(){
+const Controller = require('app/lib/controller.js');
 
+class RestController extends Controller{
+  constructor(){
+    super();
   }
   
   show(){
@@ -8,7 +10,7 @@ class RestController {
   }
 
   index(){
-    console.log('index');
+    this.render('index');
   }
   
   create(){
